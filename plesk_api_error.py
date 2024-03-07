@@ -1,28 +1,42 @@
 import traceback
+import logging
+from enum import Enum
+
+# Configure logging
+logging.basicConfig(filename='errors.log', filemode='a', level=logging.ERROR,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
+
+
+class PleskAPIErrorCode(Enum):
+    PLESKAPI_EXTENSION_ERROR = 6001
+    PLESKAPI_SERVER_ERROR = 6002
+    PLESKAPI_DOMAIN_ERROR = 6003
+    PLESKAPI_CLI_ERROR = 6004
+    # Define additional error codes as needed
 
 
 class PleskAPIError(Exception):
-    ERROR_MESSAGES = {
-        6001: "Extension related error",
-        6002: "Server related error",
-        6003: "Domains related error",
-        6004: "CLI related error",
-        # Add more specific error codes and messages here
-    }
-    def __init__(self, message="", status_code=None):
-        # Get the stack frame where the exception was instantiated
+    def __init__(self, message="", status_code=None, endpoint=None, request_data=None):
         trace = traceback.extract_stack()[-2]
-        self.func_name = trace.name  # Function name
-        self.line_no = trace.lineno  # Line number
-        full_message = f"{message} (Function: {self.func_name}, Line: {self.line_no})"
+        self.func_name = trace.name
+        self.line_no = trace.lineno
+        self.endpoint = endpoint
+        self.request_data = request_data
+
+        if status_code:
+            error_type = next(
+                (code.name for code in PleskAPIErrorCode if code.value == status_code), "Unknown Error")
+            error_message = f"{error_type} (Code {status_code}): {message}"
+        else:
+            error_message = message
+
+        full_message = f"{error_message}. Error occurred in function {self.func_name} at line {self.line_no}, calling endpoint '{self.endpoint}' with data {self.request_data}."
+
+        # Log the error
+        logging.error(full_message)
+
         super().__init__(full_message)
         self.status_code = status_code
-        if status_code is not None and status_code in self.ERROR_MESSAGES:
-            self.message = f"{self.ERROR_MESSAGES[status_code]} {message}"
 
     def __str__(self):
-        base_message = super().__str__()
-        if self.status_code:
-            return f"{self.status_code}: {base_message}"
-        else:
-            return base_message
+        return super().__str__()

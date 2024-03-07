@@ -1,5 +1,5 @@
 from base_plesk_client import BasePleskClient
-from plesk_api_error import PleskAPIError
+from plesk_api_error import PleskAPIError, PleskAPIErrorCode
 
 
 class ExtensionsClient(BasePleskClient):
@@ -11,8 +11,21 @@ class ExtensionsClient(BasePleskClient):
 
     def get_extension_detail(self, extension_id):
         """Fetches detailed information about a specific installed extension."""
+        endpoint = "extensions"  # Specify the endpoint being called
         if not extension_id:
-            # Directly raise PleskAPIError with a meaningful message and optional status_code if necessary
+            # Include endpoint and request data (extension_id) in the error message
             raise PleskAPIError(
-                "Extension ID must be provided", PleskAPIError.ERROR_MESSAGES[6001]) 
-        return self.send_request(f"extensions/{extension_id}")
+                message="Extension ID must be provided",
+                status_code=PleskAPIErrorCode.PLESKAPI_EXTENSION_ERROR.value,  # Example status code
+                endpoint=endpoint,
+                request_data={"extension_id": extension_id}
+            )
+        try:
+            return self.send_request(f"{endpoint}/{extension_id}")
+        except Exception as e:
+            # Catch potential exceptions and raise them as PleskAPIError with context
+            raise PleskAPIError(
+                message=str(e),
+                endpoint=endpoint,
+                request_data={"extension_id": extension_id}
+            ) from e

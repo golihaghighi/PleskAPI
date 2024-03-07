@@ -19,10 +19,25 @@ cd PleskAPI
 
 ```python
 from PleskRestClient import PleskRestClient
+from plesk_api_error import PleskAPIError
 
-client = PleskRestClient('host', 'username', 'password')
-domains = client.domains.get_domains()
-print(domains)
+load_dotenv()
+
+    # Initialize PleskRestClient with credentials from environment variables
+    host = os.getenv('PLESK_HOST')
+    username = os.getenv('PLESK_LOGIN')
+    password = os.getenv('PLESK_PASSWORD')
+    client = PleskRestClient(host, username, password)
+
+    # Attempt to get domains and handle possible errors
+    try:
+        domains = client.domains.get_domains()
+        print(domains)
+    except PleskAPIError as e:
+        print(e.message)
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+
 ```
 
 ...
