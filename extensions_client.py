@@ -1,5 +1,5 @@
 from base_plesk_client import BasePleskClient
-from plesk_api_error import PleskAPIError, PleskAPIErrorCode
+from plesk_api_error import  PleskAPIError, PleskAPIErrorCode
 
 
 class ExtensionsClient(BasePleskClient):
@@ -16,10 +16,10 @@ class ExtensionsClient(BasePleskClient):
             # Include endpoint and request data (extension_id) in the error message
             raise PleskAPIError(
                 message="Extension ID must be provided",
-                status_code=PleskAPIErrorCode.PLESKAPI_EXTENSION_ERROR.value,  # Example status code
+                status_code=PleskAPIErrorCode.EXTENSION_ERROR.value,  # Example status code
                 endpoint=endpoint,
                 request_data={"extension_id": extension_id}
-            )
+            ) 
         try:
             return self.send_request(f"{endpoint}/{extension_id}")
         except Exception as e:
