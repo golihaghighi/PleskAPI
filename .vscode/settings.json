@@ -1,0 +1,152 @@
+{
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 500,
+  "files.encoding": "utf8",
+  "files.exclude": {
+    "**/.DS_Store": true,
+    "**/node_modules": true,
+    "**/.git": true,
+    "**/tasks.json": true
+  },
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports.python": "explicit"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.autopep8",
+    "editor.formatOnSave": true,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4,
+    "python.analysis.typeCheckingMode": "basic", // Pylance setting for basic type checking
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.flake8Enabled": true, // Enable flake8 for additional linting
+    "python.formatting.provider": "black", // Use Black for formatting if you prefer it over autopep8
+    "autopep8.args": ["--max-line-length=79"],
+    "autopep8.path": ["conda", "run", "-n", "lint_env", "python", "-m", "autopep8"],
+    "autopep8.importStrategy": "useBundled",
+    "editor.rulers": [80]
+  },
+  "workbench.colorTheme": "Night Owl",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.sideBar.location": "right",
+  "liveServer.settings.port": 5502,
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"], // Ensuring ESLint checks TypeScript files
+  "prettier.requireConfig": true, // Only format files that have a Prettier config
+  "editor.rulers": [80, 100, 120],
+  "editor.wordWrap": "on",
+  "editor.tabSize": 2,
+  "editor.fontFamily": "'Fira Code', 'Inconsolata', monospace",
+  "editor.bracketPairColorization.enabled": true,
+  "[javascript]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2
+  },
+  "[javascriptreact]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2
+  },
+  "[typescript]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2
+  },
+  "[typescriptreact]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2
+  },
+  "todo-tree.general.tags": ["TODO", "FIXME", "NOTE"],
+  "todo-tree.highlights.customHighlight": {
+    "TODO": {
+      "icon": "check",
+      "type": "text",
+      "foreground": "#ffcc00",
+      "background": "#555555",
+      "iconColour": "#ffcc00"
+    },
+    "FIXME": {
+      "icon": "alert",
+      "type": "text",
+      "foreground": "#ff0000",
+      "background": "#555555",
+      "iconColour": "#ff0000"
+    },
+    "NOTE": {
+      "icon": "note",
+      "type": "text",
+      "foreground": "#00ff00",
+      "background": "#555555",
+      "iconColour": "#00ff00"
+    }
+  },
+  "todo-tree.tree.showScanModeButton": true,
+  "todo-tree.highlights.defaultHighlight": {
+    "foreground": "#ffffff",
+    "background": "#0000ff",
+    "iconColour": "#ffffff"
+  },
+  "todo-tree.general.statusBar": "total",
+  "todo-tree.general.enableFileWatcher": true,
+  "todo-tree.filtering.excludeGlobs": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/.git/**"
+  ],
+  "todo-tree.filtering.includeGlobs": [
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.py"
+  ],
+  // Docker settings
+  "docker.images.buildKit": true, // Enable BuildKit for image building
+  // Git Graph settings
+  "git-graph.date.type":"Author Date", // Display dates in Author Date
+  // Python testing settings
+  "python.testing.unittestEnabled": true,
+  "python.testing.pytestEnabled": false,
+  "python.testing.nosetestsEnabled": false,
+  "jupyter.notebookFileRoot": "${workspaceFolder}",
+  "jupyter.interactiveWindow.creationMode": "perFile",
+  "jupyter.interactiveWindow.textEditor.executeSelection": true,
+  "python.analysis.autoImportCompletions": true,
+
+  // Python formatting with autopep8 for PEP 8 compliance
+  "python.formatting.provider": "autopep8",
+  "python.formatting.autopep8Args": [
+    "--max-line-length=79", // PEP 8 line length recommendation
+    "--aggressive", // Makes autopep8 more aggressive in formatting
+    "--experimental" // Enables experimental formatting features
+  ],
+  // Linting with Pylint (enabled by the ms-python.python extension)
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  "python.linting.pylintArgs": [
+    "--enable=W,C,R", // Enable all convention, warning, and refactor messages
+    "--disable=E1101", // Example of disabling a specific message (no-member)
+    // Add or remove pylint arguments as per your project needs
+  ],
+  // Ensures the Python extension uses the workspace version of Python
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+  // Additional settings to enhance Python development
+  "editor.codeActionsOnSave": {
+    "source.organizeImports.python": true // Organizes imports on save according to PEP 8
+  },
+  "python.analysis.typeCheckingMode": "basic", // Enables basic type checking for better code analysis
+  "autoDocstring.docstringFormat": "google",
+  "python.testing.pytestArgs": [
+    "."
+  ],
+  "python.testing.unittestArgs": [
+    "-v",
+    "-s",
+    ".",
+    "-p",
+    "test_*.py"
+  ]
+
+}

@@ -1,0 +1,30 @@
+{
+  "recommendations": [
+    "sdras.night-owl",
+    "Gruntfuggly.todo-tree",
+    "SimonSiefke.svg-preview",
+    "ms-mysql.mysql",
+    "ms-python.autopep8",
+    "njpwerner.autodocstring",
+    "ms-python.python", // Essential for Python development, provides IntelliSense, debugging, etc.
+    "ms-vscode.vscode-typescript-next", // For improved TypeScript support, useful in React projects
+    "dbaeumer.vscode-eslint", // Linting for JavaScript and TypeScript, important for React code quality
+    "esbenp.prettier-vscode", // Code formatter for JavaScript, TypeScript, CSS, and more
+    "ritwickdey.LiveServer", // A quick development server for static & dynamic pages
+    "PKief.material-icon-theme", // Enhances the visual browsing experience by adding icons
+    "formulahendry.auto-rename-tag", // Automatically renames paired HTML/XML tag
+    "formulahendry.auto-close-tag", // Automatically add HTML/XML close tag
+    "ms-python.vscode-pylance", // Provides fast, feature-rich language support for Python
+    "VisualStudioExptTeam.vscodeintellicode", // AI-assisted code completions based on patterns found in your code and others'
+    "github.vscode-pull-request-github", // PR and issue management for GitHub, integrates with the GitHub extension
+    "eg2.vscode-npm-script", // NPM script runner
+    "christian-kohler.npm-intellisense", // Autocompletes npm modules in import statements
+    "dsznajder.es7-react-js-snippets", // React snippets that include hooks and propTypes
+    "vscoss.vscode-ansible", // For managing cloud resources, useful in full-stack development
+    "mhutchie.git-graph", // Visualize git graph, very useful for managing branches and understanding project structure
+    "ms-azuretools.vscode-docker", // Docker support for managing containers that might be used in backend development
+    "ms-toolsai.jupyter", // Jupyter notebook support, useful for data exploration in Python
+    "yzhang.markdown-all-in-one", // All you need for Markdown (especially README files)
+    "bradlc.vscode-tailwindcss" // Tailwind CSS IntelliSense, highly useful for styling React components
+  ]
+}
