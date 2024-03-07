@@ -1,4 +1,6 @@
+from cli_client import CliClient
 from domains_client import DomainsClient
+from extensions_client import ExtensionsClient
 from server_client import ServerClient
 
 
@@ -10,3 +12,5 @@ class PleskRestClient:
                        'port': port, 'protocol': protocol, 'verify_ssl': verify_ssl}
         self.domains = DomainsClient(**common_args)
         self.server = ServerClient(**common_args)
+        self.cli = CliClient(**common_args)
+        self.extensions = ExtensionsClient(**common_args)

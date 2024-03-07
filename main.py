@@ -1,26 +1,27 @@
 import os
 from dotenv import load_dotenv
-import requests
 from plesk_rest_client import PleskRestClient
-
+from plesk_api_error import PleskAPIError
 
 
 def main():
-    # Load environment variables from .env file
+    # Load environment variables
     load_dotenv()
 
-    # Access environment variables
+    # Initialize PleskRestClient with credentials from environment variables
     host = os.getenv('PLESK_HOST')
     username = os.getenv('PLESK_LOGIN')
     password = os.getenv('PLESK_PASSWORD')
-
     client = PleskRestClient(host, username, password)
 
+    # Attempt to get extension detail and handle possible errors
     try:
-        domains = client.domains.get_domains()
-        print(domains)
-    except requests.RequestException as e:
-        print(f"An error occurred: {e}")
+        extension_details = client.extensions.get_extension_detail('')
+        print(extension_details)
+    except PleskAPIError as e:
+        print(e)
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
 
 
 if __name__ == "__main__":

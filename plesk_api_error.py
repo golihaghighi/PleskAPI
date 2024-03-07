@@ -1,41 +1,28 @@
-"""
-Module Name: Plesk API Error Handler
-Description: Defines a custom exception class for handling Plesk API errors.
+import traceback
 
-This module offers the `PleskAPIError` class, designed to effectively capture and
-represent errors from the Plesk API. It extends Python's base Exception class,
-adding information specific to Plesk API errors, such as HTTP status codes.
-"""
 
 class PleskAPIError(Exception):
-    """
-    Custom exception class designed to represent errors encountered while interacting with the Plesk API.
-
-    This exception class extends the standard Python Exception class to provide more detailed error information
-    specific to Plesk API interactions, including HTTP status codes that may accompany an API response.
-
-    Attributes:
-        message (str): A human-readable string describing the error. This attribute is inherited from the base Exception class.
-        status_code (int, optional): The HTTP status code associated with the API error, if applicable. This provides additional
-                                     context that can be useful for error handling logic.
-
-    Parameters:
-        message (str, optional): Descriptive error message. Defaults to an empty string.
-        status_code (int, optional): HTTP status code related to the error. Defaults to None.
-
-    Methods:
-        __init__: Initializes a new instance of the PleskAPIError class with the specified error message and status code.
-        __str__: Returns a string representation of the error, which includes the status code if provided.
-    """
-
+    ERROR_MESSAGES = {
+        6001: "Extension related error",
+        6002: "Server related error",
+        6003: "Domains related error",
+        6004: "CLI related error",
+        # Add more specific error codes and messages here
+    }
     def __init__(self, message="", status_code=None):
-        """
-        Initializes a new instance of the PleskAPIError class with the provided message and optional HTTP status code.
-
-        Parameters:
-            message (str, optional): The error message describing what went wrong.
-            status_code (int, optional): An HTTP status code associated with the error from the Plesk API.
-        """
-        super().__init__(message)  # Initialize the base class with the error message
-        # Store the HTTP status code associated with this error
+        # Get the stack frame where the exception was instantiated
+        trace = traceback.extract_stack()[-2]
+        self.func_name = trace.name  # Function name
+        self.line_no = trace.lineno  # Line number
+        full_message = f"{message} (Function: {self.func_name}, Line: {self.line_no})"
+        super().__init__(full_message)
         self.status_code = status_code
+        if status_code is not None and status_code in self.ERROR_MESSAGES:
+            self.message = f"{self.ERROR_MESSAGES[status_code]} {message}"
+
+    def __str__(self):
+        base_message = super().__str__()
+        if self.status_code:
+            return f"{self.status_code}: {base_message}"
+        else:
+            return base_message
